@@ -1,0 +1,11 @@
+# .yaml file is necessary for defining the new class YOLOv8 is supposed to be trained on
+
+path: /path/to/yolo_dataset
+train: images/train
+val: images/val
+test: images/test
+
+names:
+  0: sunglasses
+
+nc: 1

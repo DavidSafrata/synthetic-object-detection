@@ -1,0 +1,35 @@
+object: assets/sunglasses/sunglasses.obj
+object_size: 0.15
+class_name: sunglasses
+
+resolution: 640
+fov: 55
+samples: 32
+frames_per_batch: 25
+negative_ratio: 0.1
+offcenter: 0.7
+max_lights: 2
+roughness: [0.2, 0.9]
+
+hdri_dir: hdris
+hdris:
+  train: [artist_workshop, cabin, comfy_cafe, en_suite, hotel_room, kiara_interior, lythwood_room, modern_bathroom, reading_room, unfinished_office, warm_bar, wooden_lounge]
+  val: [brown_photostudio_02, old_room, yoga_room]
+  test: [bathroom, lebombo, fireplace]
+
+factors:
+  distance: [0.2, 0.4, 0.7, 1.1, 1.6]
+  elevation: [-90, -30, 0, 30, 90]
+  occluders: [0, 1, 2, 3, 4]
+  brightness: [0.1, 0.35, 1.0, 2.0, 4.0]
+focus_mix: 0.5
+min_visible_pixels: 64
+
+train:
+  model: yolov8n-seg.pt
+  epochs: 20
+  imgsz: 640
+  batch: 16
+  workers: 2
+  device: 0
+  val: false

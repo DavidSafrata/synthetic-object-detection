@@ -1,0 +1,8 @@
+data/
+datasets/
+runs/
+hdris/
+*.pt
+failures.json
+__pycache__/
+.DS_Store
