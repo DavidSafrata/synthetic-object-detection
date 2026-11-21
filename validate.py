@@ -27,10 +27,8 @@ for split in ["train", "val", "test"]:
         rows = [list(map(float, line.split())) for line in open(label) if line.strip()]
         negatives += not rows
         for r in rows:
-            if r[0] != 0 or len(r) < 5 or len(r) % 2 == 0 or min(r[1:]) < 0 or max(r[1:]) > 1:
+            if r[0] != 0 or len(r) < 7 or len(r) % 2 == 0 or min(r[1:]) < 0 or max(r[1:]) > 1:
                 issues.append(f"invalid row: {label}")
-            elif len(r) == 5:
-                boxes.append([r[1] - r[3] / 2, r[2] - r[4] / 2, r[1] + r[3] / 2, r[2] + r[4] / 2])
             else:
                 p = np.array(r[1:]).reshape(-1, 2)
                 boxes.append([*p.min(0), *p.max(0)])
@@ -53,10 +51,7 @@ if args.preview:
         h, w = img.shape[:2]
         label = path.replace(f"{os.sep}images{os.sep}", f"{os.sep}labels{os.sep}").rsplit(".", 1)[0] + ".txt"
         for line in open(label):
-            r = np.array(line.split()[1:], float)
-            if len(r) == 4:
-                r = np.array([r[0] - r[2] / 2, r[1] - r[3] / 2, r[0] + r[2] / 2, r[1] - r[3] / 2, r[0] + r[2] / 2, r[1] + r[3] / 2, r[0] - r[2] / 2, r[1] + r[3] / 2])
-            p = (r.reshape(-1, 2) * [w, h]).astype(np.int32)
+            p = (np.array(line.split()[1:], float).reshape(-1, 2) * [w, h]).astype(np.int32)
             overlay = img.copy()
             cv2.fillPoly(overlay, [p], (0, 0, 255))
             img = cv2.addWeighted(overlay, 0.4, img, 0.6, 0)

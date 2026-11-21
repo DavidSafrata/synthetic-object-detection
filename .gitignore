@@ -6,3 +6,4 @@ hdris/
 failures.json
 __pycache__/
 .DS_Store
+results.txt
